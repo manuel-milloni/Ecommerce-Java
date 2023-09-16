@@ -3,7 +3,7 @@
 <%@page import="java.util.List"%>
 <%@page import="modelo.TipoProductoDAO"%>
 <%@page import="modelo.ProductoDAO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -32,7 +32,7 @@
         <form action="Controlador?menu=Producto&accion=NuevoProducto" method="post" enctype="multipart/form-data">
             
             <div class="form-group row">
-                <label for="descripcion" class="col-sm-3 col-form-label">DescripciÃ³n:</label>
+                <label for="descripcion" class="col-sm-3 col-form-label">Descripción:</label>
             <div class="col-sm-9">
             <input type="text" id="descripcion" name="descripcion" class="form-control" value="" maxlength="30" required>
             </div>
@@ -67,7 +67,7 @@
     <div class="form-group row">
      <label for="imagen" class="col-sm-3 col-form-label">Imagen:</label>
       <div class="col-sm-9">
-        <input type="file" name="imagen" id="imagen" accept="image/*" >
+        <input type="file" name="filename" >
       </div>
     </div>
     
@@ -124,7 +124,10 @@
                             <td><%=p.getStock()%></td>
                             <td>
                                  
-                                 <img src="../img/calendario.PNG" alt="Imagen del producto" class="card-img-top">
+                             <img src="<%= p.getImagen() %>" alt="Imagen producto" class="card-img-top" width="200" height="150">
+
+
+
                             </td>
                             <td>
                             <a class="btn btn-warning" href="Controlador?menu=Producto&accion=Editar&id=<%= p.getIdProducto()%>">Editar</a>

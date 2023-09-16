@@ -1,37 +1,45 @@
 
 package controlador;
 
-import java.io.PrintWriter;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+
+
+
+
 import modelo.Producto;
 
 import modelo.ProductoDAO;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
+
+
+
+
 import java.util.ArrayList;
-import java.util.Collection;
+
 import java.util.List;
 
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
+
 
 import modelo.TipoProducto;
 import modelo.TipoProductoDAO;
 
+
+import java.io.File;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 
 
 @MultipartConfig
 @WebServlet("/Controlador")
 public class Controlador extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
     private ProductoDAO pDAO = new ProductoDAO();
     private Producto producto = new Producto();
@@ -40,20 +48,21 @@ public class Controlador extends HttpServlet {
     private TipoProducto tp = new TipoProducto();
     private Producto p = new Producto();
     private List<Producto> productos = new ArrayList<>();
+    private static final String UPLOAD_DIR = "images";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
     }
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String menu = request.getParameter("menu");
         String accion = request.getParameter("accion");
         if (menu.equals("Producto")) {
             switch (accion) {
-                case "Producto": {
+                
+             case "Producto": {
                     if(request.getSession().getAttribute("authEmpleado")!=null){
                         tiposProducto = tpDAO.getAll();
                     productos = pDAO.getAll();
@@ -92,7 +101,7 @@ public class Controlador extends HttpServlet {
         }
     }
 
-    @Override
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        
@@ -107,25 +116,52 @@ public class Controlador extends HttpServlet {
                     p.setIdTipo(Integer.parseInt(request.getParameter("tipoProducto")));
                     p.setStock(Integer.parseInt(request.getParameter("stock")));
 
-                    Part fotoPart = request.getPart("imagen");
-                    if (fotoPart != null) {
-                        String nombreFoto = fotoPart.getSubmittedFileName();
-
-                        // Directorio donde se almacenará la foto
-                        String directorioFotos = "C:/Users/Manu/Documents/NetBeansProjects/CargarImagen/img";
-
-                        // Crear el archivo destino
-                        File archivoDestino = new File(directorioFotos, nombreFoto);
-
-                        // Copiar la foto al directorio destino
-                        fotoPart.write(archivoDestino.getAbsolutePath());
-
-                        // Establecer la ruta completa de la foto en el atributo producto.setFoto()
-                        String rutaFoto = archivoDestino.getAbsolutePath();
-                        p.setImagen(rutaFoto);
-                    }
+                    //Imagen ----------------------------------------------------------------------
+                       //Obtener ruta absoluta de la App  
+                      String applicationPath = request.getServletContext().getRealPath("");
+                      System.out.println("Aplication path: "+applicationPath);
+                      
+                      //File path
+                      String uploadFilePath = applicationPath+UPLOAD_DIR+File.separator;
+                      System.out.println("File path: "+uploadFilePath);
+                     
+                     
+                      
+                      
+                      //Folder images
+                      File fileSaveDir = new File(uploadFilePath);
+                     
+                      if(!fileSaveDir.exists()) {
+                    	    //Si el direcorio no existe, lo creo
+                    	    fileSaveDir.mkdirs();
+                    	 
+                      }
+                      
+                      
+                      
+                      String fileName=null;
+                      
+                      for(Part part : request.getParts()) {
+                    	   fileName= getFileName(part);
+                    	   System.out.println("Filename: "+fileName);
+                    	   System.out.println("Write: "+uploadFilePath+fileName);
+                    	   if(fileName!=null && !fileName.equalsIgnoreCase("")) {
+                    		   part.write(uploadFilePath+fileName);   
+                    		   
+                    	   }
+                    	  
+                    	   
+                    	  
+                      }
+                      
+                      p.setImagen(UPLOAD_DIR+File.separator+fileName);
+                      // -- --------------------------------------------------------------------------------------------------  
+                    
+          
 
                     pDAO.save(p);
+                    
+            
                     response.sendRedirect("Controlador?menu=Producto&accion=Producto");
                     break;
 
@@ -143,6 +179,18 @@ public class Controlador extends HttpServlet {
                 }
             }
         }
+    }
+    
+    private String getFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        System.out.println("content-disposition header= "+contentDisp);
+        String[] tokens = contentDisp.split(";");
+        for (String token : tokens) {
+            if (token.trim().startsWith("filename")) {
+                return token.substring(token.indexOf("=") + 2, token.length()-1);
+            }
+        }
+        return "";
     }
 
     @Override
