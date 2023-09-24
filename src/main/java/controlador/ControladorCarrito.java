@@ -44,7 +44,7 @@ public class ControladorCarrito extends HttpServlet {
                     carrito.setIdProducto(id);
                     carrito.setCantidad(1);
                     carrito.setStock(producto.getStock());
-
+                    carrito.setPrecio(producto.getPrecio()); 
                     ArrayList<Carrito> carrito_lista = (ArrayList<Carrito>) session.getAttribute("carrito-lista");
 
                     //Primer producto al carrito

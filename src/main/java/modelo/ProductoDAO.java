@@ -66,7 +66,9 @@ public class ProductoDAO {
             System.out.println(e.toString());
         }
     }
-
+    
+    
+       //Devuelve lista tipo Carrito completando cada elemento con los datos del producto
     public List<Carrito> getCarritoProductos(ArrayList<Carrito> listaCarrito) {
         List<Carrito> productos = new ArrayList<>();
 
@@ -86,7 +88,7 @@ public class ProductoDAO {
                         c.setDescripcion(rs.getString("descripcion"));
                         c.setIdTipo(rs.getInt("idTipo"));
                         c.setCantidad(1);
-                        c.setPrecio(rs.getDouble("precio") * item.getCantidad());
+                        c.setPrecio(rs.getDouble("precio"));
                         c.setStock(rs.getInt("stock"));
                         c.setCantidad(item.getCantidad());
                         productos.add(c);

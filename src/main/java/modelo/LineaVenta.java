@@ -7,6 +7,7 @@ public class LineaVenta {
         private int cantProducto;
         private int nroVenta;
         private int idProducto;
+        private double precio;
         
         public LineaVenta(){
         };
@@ -42,6 +43,16 @@ public class LineaVenta {
     public void setIdProducto(int idProducto) {
         this.idProducto = idProducto;
     }
+
+	public double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+    
+    
         
         
     

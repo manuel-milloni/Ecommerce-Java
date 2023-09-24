@@ -94,6 +94,7 @@ public class ControladorCategoria extends HttpServlet {
                     cat.setDescripcion(request.getParameter("descripcion"));
                     cDAO.update(cat);
 
+                  
                     response.sendRedirect("ControladorCategoria?menu=Categoria&accion=Categoria");
                 }
 

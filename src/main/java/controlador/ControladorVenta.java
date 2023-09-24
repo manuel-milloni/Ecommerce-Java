@@ -79,17 +79,18 @@ public class ControladorVenta extends HttpServlet {
                             lv.setCantProducto(item.getCantidad());
                             lv.setNroVenta(nroVenta);
                             lv.setIdProducto(item.getIdProducto());
+                            lv.setPrecio(item.getPrecio());
                             lvDAO.save(lv);
                             pDAO.updateStock(item.getIdProducto(), item.getStock() - item.getCantidad());
                         }
                         request.getSession().setAttribute("carrito-lista", null);
-                        request.getSession().setAttribute("mensajeExito", "Pedido generado exitosamente");
+                        request.getSession().setAttribute("mensajeExito", "Gracias por su compra! Su pedido fue cargado exitosamente");
                         response.sendRedirect("index.jsp");
                         
                         break;
 
                     } else {
-                          request.getSession().setAttribute("mensajeError", "Pedido generado exitosamente");
+                          request.getSession().setAttribute("mensajeError", "Error al generar el pedido.Intente nuevamente");
                           response.sendRedirect("index.jsp");
                           break;
                     
@@ -104,6 +105,15 @@ public class ControladorVenta extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	    String cliente=request.getParameter("cliente");
+    	    String fechaDesde=request.getParameter("fechaDesde");
+    	    String fechaHasta=request.getParameter("fechaHasta");
+    	
+    	    
+    	    
+    	    System.out.println(" Cliente: "+cliente+"   Fecha desde: "+fechaDesde+"   Fecha Hasta: "+fechaHasta);
+    	    
+    	    response.sendRedirect("ControladorVenta?menu=venta&accion=venta");
 
     }
 

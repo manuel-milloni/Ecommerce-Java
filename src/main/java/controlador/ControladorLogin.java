@@ -73,18 +73,30 @@ public class ControladorLogin extends HttpServlet {
                     HttpSession session = request.getSession();
                     String password = request.getParameter("password");
                     Cliente c = cDAO.login(request.getParameter("email"));
-                    try {
-                        if (password.equals(decrypt(c.getPassword()))) {
-                            session.setAttribute("auth", c);
-                            response.sendRedirect("ControladorInicio?menu=inicio&accion=inicio");
+                    
+                    if(c!=null) {
+                    	   try {
+                               if (password.equals(decrypt(c.getPassword()))) {
+                                   session.setAttribute("auth", c);
+                                   response.sendRedirect("ControladorInicio?menu=inicio&accion=inicio");
 
-                        } else {
-                            session.setAttribute("mensaje", "Usuario o Contraseña incorrecto");
-                            response.sendRedirect("ControladorLogin?menu=login&accion=login");
-                        }
-                    } catch (Exception ex) {
-                        Logger.getLogger(ControladorLogin.class.getName()).log(Level.SEVERE, null, ex);
+                               } else {
+                            	     //Password incorrecto
+                                   session.setAttribute("mensaje", "Usuario o Contraseña incorrecto");
+                                   response.sendRedirect("ControladorLogin?menu=login&accion=login");
+                               }
+                           } catch (Exception ex) {
+                               Logger.getLogger(ControladorLogin.class.getName()).log(Level.SEVERE, null, ex);
+                           }
+                    	
+                    	
+                    } else {
+                    	    //Cliente no encontrado
+                    	  session.setAttribute("mensaje", "Usuario o Contraseña incorrecto");
+                          response.sendRedirect("ControladorLogin?menu=login&accion=login");
+                    	
                     }
+                 
                     break;
 
                 }

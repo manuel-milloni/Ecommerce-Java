@@ -64,6 +64,7 @@
         <% if (request.getAttribute("mensajeAgregado") != null) {%>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong><%= request.getAttribute("mensajeAgregado")%></strong>
+            <% request.setAttribute("mensajeAgregado", null); %>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <% } %>
@@ -72,9 +73,30 @@
         <% if (request.getAttribute("mensajeExiste") != null) {%>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong><%= request.getAttribute("mensajeExiste")%></strong>
+            <% request.setAttribute("mensajeExiste", null); %>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <% } %>
+        
+        <% if(request.getSession().getAttribute("mensajeExito")!=null){%>
+        	 <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong><%= request.getSession().getAttribute("mensajeExito")%></strong>
+            <% request.getSession().setAttribute("mensajeExito", null);  %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div> 
+           <% } %>
+        
+          <% if(request.getSession().getAttribute("mensajeError")!=null){%>
+        	 <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong><%= request.getSession().getAttribute("mensajeError")%></strong>
+            <% request.getSession().setAttribute("mensajeError", null);  %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+           <% } %>
+        	
+        	
+        	
+     
         <!-- --------------------------------BUSCADOR-------------------------- -->
         <div class="container text-center">
             <div class="row mt-3">
