@@ -77,7 +77,7 @@ public class ClienteDAO {
     }
 
     public void update(Cliente c) {
-        String sql = "UPDATE cliente SET nombre=?, apellido=?, telefono=?, email=?, direccion=?, cuit=?, idCategoria=?, password=? WHERE idCliente=?";
+        String sql = "UPDATE cliente SET nombre=?, apellido=?, telefono=?, email=?, direccion=?, cuit=?, idCategoria=? WHERE idCliente=?";
         try {
             Conexion con = new Conexion();
             conexion = con.getConexion();
@@ -90,7 +90,7 @@ public class ClienteDAO {
             ps.setString(5, c.getDireccion());
             ps.setString(6, c.getCuit());
             ps.setInt(7, c.getIdCategoria());
-            ps.setString(8, c.getPassword());
+       
             ps.executeUpdate();
             ps.close();
 

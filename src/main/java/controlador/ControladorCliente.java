@@ -160,7 +160,7 @@ public class ControladorCliente extends HttpServlet {
                     c.setDireccion(request.getParameter("direccion"));
                     c.setCuit(request.getParameter("cuit"));
                     c.setIdCategoria(Integer.parseInt(request.getParameter("categoria")));
-                    c.setPassword(request.getParameter("password"));
+                   
                     cDAO.update(c);
                     response.sendRedirect("ControladorCliente?menu=Cliente&accion=Cliente");
                     break;

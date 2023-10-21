@@ -81,12 +81,7 @@
                 </div>
             </div>
             
-            <div class="form-group row">
-                <label for="password" class="col-sm-3 col-form-label">Contraseña:</label>
-            <div class="col-sm-9">
-            <input type="password" id="password" name="password" class="form-control" value="" required>
-            </div>
-            </div>
+          
             
             <br>
            
