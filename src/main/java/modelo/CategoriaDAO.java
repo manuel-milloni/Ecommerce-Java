@@ -74,7 +74,7 @@ public class CategoriaDAO {
 
     }
 
-    public void delete(int id) {
+    public boolean delete(int id) {
         String sql = "DELETE FROM categoria WHERE idCategoria=?";
         try {
             Conexion con = new Conexion();
@@ -83,8 +83,10 @@ public class CategoriaDAO {
             ps.setInt(1, id);
             ps.executeUpdate();
             ps.close();
+            return true;
         } catch (SQLException e) {
             System.out.println(e.toString());
+            return false;
         }
     }
 
