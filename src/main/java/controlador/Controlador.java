@@ -31,7 +31,7 @@ public class Controlador extends HttpServlet {
 	private Producto producto = new Producto();
 	private TipoProductoDAO tpDAO = new TipoProductoDAO();
 	private List<TipoProducto> tiposProducto = new ArrayList<>();
-	private TipoProducto tp = new TipoProducto();
+	private TipoProducto tipoProducto = new TipoProducto();
 	private Producto p = new Producto();
 	private List<Producto> productos = new ArrayList<>();
 	private static final String UPLOAD_DIR = "images";
@@ -70,8 +70,10 @@ public class Controlador extends HttpServlet {
 				producto = pDAO.getById(id);
 				if (producto != null) {
 					tiposProducto = tpDAO.getAll();
+				
 					request.setAttribute("tiposProducto", tiposProducto);
 					request.setAttribute("producto", producto);
+				
 					request.getRequestDispatcher("admin/productoModificar.jsp").forward(request, response);
 
 				} else {

@@ -145,8 +145,10 @@
 						<td><%=p.getPrecio()%></td>
 						<td><%=tp.getDescripcion()%></td>
 						<td><%=p.getStock()%></td>
-						<td><img src="../img/calendario.PNG"
-							alt="Imagen del producto" class="card-img-top"></td>
+						<td>
+						 <img src="<%= p.getImagen() %>" alt="Imagen producto" class="card-img-top" width="200" height="150">
+							</td>
+						
 						<td><a class="btn btn-warning"
 							href="Controlador?menu=Producto&accion=Editar&id=<%=p.getIdProducto()%>">Editar</a>
 							<a class="btn btn-danger"
