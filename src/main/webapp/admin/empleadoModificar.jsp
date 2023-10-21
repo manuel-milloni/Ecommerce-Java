@@ -120,7 +120,7 @@
                     RolDAO rDAO=new RolDAO();
                     Rol rol=new Rol();
                     for(Empleado e: empleados){
-                     rol=rDAO.getById(emp.getIdRol());
+                     rol=rDAO.getById(e.getIdRol());
                      %> <tbody>
                         <tr>
                             <td><%= e.getNombre() %></td>

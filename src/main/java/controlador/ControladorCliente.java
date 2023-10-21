@@ -95,9 +95,9 @@ public class ControladorCliente extends HttpServlet {
             switch (accion) {
                 case "NuevoCliente": {
                     Cliente cli = new Cliente();
-                    String password = request.getParameter("password");
+                    String password_1 = request.getParameter("password_1");
                     String password_2 = request.getParameter("password_2");
-                    if (password.equals(password_2)) {
+                    if (password_1.equals(password_2)) {
 
                         cli.setNombre(request.getParameter("nombre"));
                         cli.setApellido(request.getParameter("apellido"));
@@ -107,7 +107,7 @@ public class ControladorCliente extends HttpServlet {
                         cli.setCuit(request.getParameter("cuit"));
                         cli.setIdCategoria(Integer.parseInt(request.getParameter("categoria")));
                         try {
-                            cli.setPassword(encrypt(request.getParameter("password")));
+                            cli.setPassword(encrypt(password_1));
                         } catch (Exception e) {
                             System.out.println(e.toString());
                         }

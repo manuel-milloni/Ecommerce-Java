@@ -101,31 +101,57 @@ public class ControladorEmpleado extends HttpServlet {
         if (menu.equals("Empleado")) {
             switch (accion) {
                 case "NuevoEmpleado": {
-
-                    emp.setNombre(request.getParameter("nombre"));
-                    emp.setApellido(request.getParameter("apellido"));
-                    emp.setTelefono(request.getParameter("telefono"));
-                    emp.setEmail(request.getParameter("email"));
-                    emp.setDireccion(request.getParameter("direccion"));
-                    emp.setDni(request.getParameter("dni"));
-                    emp.setIdRol(Integer.parseInt(request.getParameter("rol")));
+                	 Empleado empleado = new Empleado();
+                	 String password_1=request.getParameter("password_1");
+                	 String password_2=request.getParameter("password_2");
+                	
+                	 
+                	 if(password_1.equals(password_2)) {
+                		
+                		    empleado.setNombre(request.getParameter("nombre"));
+                            empleado.setApellido(request.getParameter("apellido"));
+                            empleado.setTelefono(request.getParameter("telefono"));
+                            empleado.setEmail(request.getParameter("email"));
+                            empleado.setDireccion(request.getParameter("direccion"));
+                            empleado.setDni(request.getParameter("dni"));
+                            empleado.setIdRol(Integer.parseInt(request.getParameter("rol")));
+                        
+                        try {
+                            String passEncriptado=encrypt(password_1);
+                              empleado.setPassword(passEncriptado);
+                        } catch (Exception ex) {
+                            Logger.getLogger(ControladorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+                            request.getSession().setAttribute("mensajeError", "Error: no se pudo ingresar el registro");
+                            response.sendRedirect("ControladorEmpleado?menu=Empleado&accion=Empleado");
+                            break;
+                        }
+                          
+                            if(eDAO.save(empleado)) {
+                            	  request.getSession().setAttribute("mensajeExito", "Empleado agregado exitosamente");
+                                  response.sendRedirect("ControladorEmpleado?menu=Empleado&accion=Empleado");
+                                  break; 
+                      		 	
+                               	
+                            } else {
+                            	 request.getSession().setAttribute("mensajeError", "Error: no se pudo ingresar el registro");
+                            	  response.sendRedirect("ControladorEmpleado?menu=Empleado&accion=Empleado");
+                            	  break;
+                            	
+                            }
+                          
+                		 
+                	 } else {
+                		 request.getSession().setAttribute("mensajeError", "Las contraseñas deben coincidir");
+                         response.sendRedirect("ControladorEmpleado?menu=Empleado&accion=Empleado");
+                         break; 
+                		 
+                	 }
                 
-                try {
-                    String passEncriptado=encrypt(request.getParameter("password"));
-                      emp.setPassword(passEncriptado);
-                } catch (Exception ex) {
-                    Logger.getLogger(ControladorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-                    request.getSession().setAttribute("mensajeError", "Error: no se pudo ingresar el registro");
-                }
-                  
-                    eDAO.save(emp);
-                    request.getSession().setAttribute("mensaje", "Empleado agregado exitosamente");
-                    response.sendRedirect("ControladorEmpleado?menu=Empleado&accion=Empleado");
-                    break;
 
                 }
 
                 case "Modificar": {
+                	
                     emp.setId(Integer.parseInt(request.getParameter("id")));
                     emp.setNombre(request.getParameter("nombre"));
                     emp.setApellido(request.getParameter("apellido"));
@@ -133,7 +159,8 @@ public class ControladorEmpleado extends HttpServlet {
                     emp.setEmail(request.getParameter("email"));
                     emp.setDireccion(request.getParameter("direccion"));
                     emp.setDni(request.getParameter("dni"));
-                    emp.setIdRol(Integer.parseInt(request.getParameter("idRol")));
+                    System.out.println("Id Rol: "+request.getParameter("rol"));
+                    emp.setIdRol(Integer.parseInt(request.getParameter("rol")));
                    
                     eDAO.update(emp);
 

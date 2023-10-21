@@ -137,7 +137,7 @@
 					<div class="form-group row">
 						<label for="password" class="col-sm-3 col-form-label">Contraseña:</label>
 						<div class="col-sm-9">
-							<input type="password" id="password" name="password"
+							<input type="password" id="password_1" name="password_1"
 								class="form-control" value="" maxlength="30" required>
 						</div>
 					</div>

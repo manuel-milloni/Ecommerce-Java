@@ -53,7 +53,7 @@ public class EmpleadoDAO {
 
     }
 
-    public void save(Empleado emp) {
+    public boolean save(Empleado emp) {
         String sql = "INSERT INTO empleado(nombre, apellido, telefono, email, direccion, dni, idRol, password) VALUES(?,?,?,?,?,?,?,?)";
         try {
             Conexion con = new Conexion();
@@ -70,8 +70,10 @@ public class EmpleadoDAO {
             ps.setString(8, emp.getPassword());
             ps.executeUpdate();
             ps.close();
+            return true;
         } catch (SQLException e) {
             System.out.println(e.toString());
+            return false;
         }
 
     }
@@ -90,7 +92,7 @@ public class EmpleadoDAO {
             ps.setString(5, c.getDireccion());
             ps.setString(6, c.getDni());
             ps.setInt(7, c.getIdRol());
-         
+            ps.setInt(8, c.getId());
             ps.executeUpdate();
             ps.close();
 

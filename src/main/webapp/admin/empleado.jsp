@@ -22,10 +22,19 @@
             
                <div class="card-body">
         <h2>Empleados</h2>
-         <% if (request.getSession().getAttribute("mensaje") != null) { %>
+         
+         <% if (request.getSession().getAttribute("mensajeExito") != null) { %>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong><%= request.getSession().getAttribute("mensaje") %></strong>
-        <% request.getSession().setAttribute("mensaje", null); %>
+        <strong><%= request.getSession().getAttribute("mensajeExito") %></strong>
+        <% request.getSession().setAttribute("mensajeExito", null); %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+        <% } %>
+        
+                 <% if (request.getSession().getAttribute("mensajeError") != null) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong><%= request.getSession().getAttribute("mensajeError") %></strong>
+        <% request.getSession().setAttribute("mensajeError", null); %>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
         <% } %>
@@ -91,7 +100,14 @@
             <div class="form-group row">
                 <label for="password" class="col-sm-3 col-form-label">Contraseña:</label>
             <div class="col-sm-9">
-            <input type="password" id="password" name="password" class="form-control" value="" maxlength="30" required>
+            <input type="password" id="password_1" name="password_1" class="form-control" value="" maxlength="30" required>
+            </div>
+            </div>
+            
+              <div class="form-group row">
+                <label for="password" class="col-sm-3 col-form-label">Repita Contraseña:</label>
+            <div class="col-sm-9">
+            <input type="password" id="password_2" name="password_2" class="form-control" value="" maxlength="30" required>
             </div>
             </div>
             
