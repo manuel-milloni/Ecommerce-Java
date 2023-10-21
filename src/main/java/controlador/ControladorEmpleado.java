@@ -134,8 +134,7 @@ public class ControladorEmpleado extends HttpServlet {
                     emp.setDireccion(request.getParameter("direccion"));
                     emp.setDni(request.getParameter("dni"));
                     emp.setIdRol(Integer.parseInt(request.getParameter("idRol")));
-                    emp.setPassword(request.getParameter("password"));
-
+                   
                     eDAO.update(emp);
 
                     response.sendRedirect("ControladorEmpleado?menu=Empleado&accion=Empleado");
