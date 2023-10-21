@@ -79,7 +79,7 @@ public class EmpleadoDAO {
     }
 
     public void update(Empleado c) {
-        String sql = "UPDATE empleado SET nombre=?, apellido=?, telefono=?, email=?, direccion=?, dni=?, idRol=? WHERE idEmpleado=?";
+        String sql = "UPDATE empleado SET nombre=?, apellido=?, telefono=?, direccion=?, dni=?, idRol=? WHERE idEmpleado=?";
         try {
             Conexion con = new Conexion();
             conexion = con.getConexion();
@@ -88,11 +88,11 @@ public class EmpleadoDAO {
             ps.setString(2, c.getApellido());
 
             ps.setString(3, c.getTelefono());
-            ps.setString(4, c.getEmail());
-            ps.setString(5, c.getDireccion());
-            ps.setString(6, c.getDni());
-            ps.setInt(7, c.getIdRol());
-            ps.setInt(8, c.getId());
+         
+            ps.setString(4, c.getDireccion());
+            ps.setString(5, c.getDni());
+            ps.setInt(6, c.getIdRol());
+            ps.setInt(7, c.getId());
             ps.executeUpdate();
             ps.close();
 

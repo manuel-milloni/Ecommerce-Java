@@ -25,7 +25,7 @@
         
    
         
-        <form action="ControladorCliente?menu=Cliente&accion=Modificar" method="post">
+        <form action="ControladorCliente?menu=Cliente&accion=Modificar&id=${cli.getId()}" method="post">
             
             <div class="form-group row">
                 <label for="nombre" class="col-sm-3 col-form-label">Nombre:</label>
@@ -48,12 +48,7 @@
             </div>
             </div>
             
-             <div class="form-group row">
-                <label for="email" class="col-sm-3 col-form-label">Email:</label>
-            <div class="col-sm-9">
-            <input type="email" id="email" name="email" class="form-control" value="${cli.getEmail()}" required>
-            </div>
-            </div>
+      
             
             <div class="form-group row">
                 <label for="direccion" class="col-sm-3 col-form-label">Direccion:</label>

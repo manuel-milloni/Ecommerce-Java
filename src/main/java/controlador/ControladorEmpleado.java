@@ -156,7 +156,7 @@ public class ControladorEmpleado extends HttpServlet {
                     emp.setNombre(request.getParameter("nombre"));
                     emp.setApellido(request.getParameter("apellido"));
                     emp.setTelefono(request.getParameter("telefono"));
-                    emp.setEmail(request.getParameter("email"));
+                 
                     emp.setDireccion(request.getParameter("direccion"));
                     emp.setDni(request.getParameter("dni"));
                     System.out.println("Id Rol: "+request.getParameter("rol"));

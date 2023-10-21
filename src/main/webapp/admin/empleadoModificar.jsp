@@ -46,12 +46,7 @@
             </div>
             </div>
             
-             <div class="form-group row">
-                <label for="email" class="col-sm-3 col-form-label">Email:</label>
-            <div class="col-sm-9">
-            <input type="email" id="email" name="email" class="form-control" value="${empleado.getEmail()}" required>
-            </div>
-            </div>
+          
             
             <div class="form-group row">
                 <label for="direccion" class="col-sm-3 col-form-label">Direccion:</label>
