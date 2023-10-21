@@ -112,43 +112,35 @@ public class ControladorCliente extends HttpServlet {
                             System.out.println(e.toString());
                         }
 
-                        if (cDAO.save(cli) == 1) {
-                            if (request.getSession().getAttribute("authAdmin") != null) {
+                        if (cDAO.save(cli)) {
+                            
 
                                 request.getSession().setAttribute("mensajeExito", "Cliente agregado exitosamente");
                                 response.sendRedirect("ControladorCliente?menu=Cliente&accion=Cliente");
                                 break;
-                            } else {
-                                request.getSession().setAttribute("auth", cli);
-                                response.sendRedirect("ControladorInicio?menu=inicio&accion=inicio");
-                                break;
-                            }
+                              
+                         
                         } else {
 
-                            if (request.getSession().getAttribute("authAdmin") != null) {
+                         
                                 request.getSession().setAttribute("mensajeError", "Error al ingresar cliente");
                                 response.sendRedirect("ControladorCliente?menu=Cliente&accion=Cliente");
                                 break;
-                            } else {
-                                request.getSession().setAttribute("mensajeError", "Error no se genero el registro");
-                                response.sendRedirect("ControladorLogin?menu=login&accion=registro");
-                                break;
-                            }
+                           
+                   
                         }
 
                     } else {
 
-                        if (request.getSession().getAttribute("authAdmin") != null) {
+                       
                             request.getSession().setAttribute("mensajeError", "Las contrasenas deben coincidir");
                             response.sendRedirect("ControladorCliente?menu=Cliente&accion=Cliente");
                             break;
-                        } else {
-                            request.getSession().setAttribute("mensajeError", "Las contrasenas deben coincidir");
-                            response.sendRedirect("ControladorLogin?menu=login&accion=registro");
-                            break;
+                          
+                      
                         }
 
-                    }
+                    
                 }
 
                 case "Modificar": {

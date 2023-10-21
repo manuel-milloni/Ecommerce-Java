@@ -227,5 +227,22 @@ public class ProductoDAO {
         
         
     }
+    
+    public void delete(int id) {
+    	String sql="DELETE FROM producto WHERE idProducto=?;";
+    	try {
+    		  Conexion con=new Conexion();
+    	         conexion=con.getConexion();
+    	         ps=conexion.prepareStatement(sql);
+    	         ps.setInt(1, id);
+    	         ps.executeUpdate();
+    	         ps.close();
+    		
+    	} catch(SQLException e) {
+    		System.out.println(e.toString());
+    	}
+    	
+    	
+    }
 
 }

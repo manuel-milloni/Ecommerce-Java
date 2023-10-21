@@ -59,10 +59,18 @@ public class Controlador extends HttpServlet {
 
 				} else {
 					request.getRequestDispatcher("Admin").forward(request, response);
+					break;
 
 				}
 
 			}
+			
+			  case "Eliminar": {
+                  pDAO.delete(Integer.parseInt(request.getParameter("id")));
+                  request.getRequestDispatcher("Controlador?menu=Producto&accion=Producto").forward(request, response);
+                  break;
+
+              }
 
 			case "Editar": {
 				int id = Integer.parseInt(request.getParameter("id"));
@@ -75,10 +83,11 @@ public class Controlador extends HttpServlet {
 					request.setAttribute("producto", producto);
 				
 					request.getRequestDispatcher("admin/productoModificar.jsp").forward(request, response);
+					break;
 
 				} else {
 					response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-
+                    
 				}
 				break;
 
@@ -151,7 +160,7 @@ public class Controlador extends HttpServlet {
 				p.setStock(Integer.parseInt(request.getParameter("stock")));
 				pDAO.update(p);
 				response.sendRedirect("Controlador?menu=Producto&accion=Producto");
-
+                break;
 			}
 			}
 		}

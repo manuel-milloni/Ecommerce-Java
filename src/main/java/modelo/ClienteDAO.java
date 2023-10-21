@@ -51,9 +51,9 @@ public class ClienteDAO {
 
     }
 
-    public int save(Cliente c) {
+    public boolean save(Cliente c) {
         String sql = "INSERT INTO cliente(nombre, apellido, telefono, email, direccion, cuit, idCategoria, password) VALUES(?,?,?,?,?,?,?,?)";
-        int resultado = 0;
+        
         try {
             Conexion con = new Conexion();
             conexion = con.getConexion();
@@ -67,12 +67,13 @@ public class ClienteDAO {
             ps.setString(6, c.getCuit());
             ps.setInt(7, c.getIdCategoria());
             ps.setString(8, c.getPassword());
-            resultado = ps.executeUpdate();
+            ps.executeUpdate();
             ps.close();
+            return true;
         } catch (SQLException e) {
             System.out.println(e.toString());
         }
-        return resultado;
+        return false;
 
     }
 
