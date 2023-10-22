@@ -13,6 +13,42 @@
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+   VentaDAO vDAO=new VentaDAO();
+   ClienteDAO cDAO = new ClienteDAO();
+   LineaVentaDAO lvDAO = new LineaVentaDAO();
+   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+   String buscador=(String) request.getAttribute("buscador");
+  
+   List<Venta> ventas;
+   if(buscador!=null && !buscador.equals("")){
+	    ventas=vDAO.getByEmail(buscador);
+	    
+	   
+   } else {
+	    ventas=vDAO.getAll();
+	   
+   }
+   
+   if(!ventas.isEmpty()){
+	   for(Venta venta: ventas){
+		   Cliente c = cDAO.getById(venta.getCliente().getId());
+		   venta.setCliente(c);
+		   ArrayList<LineaVenta> lineas = lvDAO.getAllByVenta(venta.getNroVenta());
+		  venta.setLineas(lineas); 
+		   
+		   
+	   }
+	   
+	   
+   }
+
+
+
+%>>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,14 +78,14 @@
 					<!-- Campo de búsqueda de cliente  -->
 					<div class="input-group" style="max-width: 400px">
 						<input type="text" id="cliente" name="cliente"
-							class="form-control" placeholder="Buscar cliente">
+							class="form-control" placeholder="Buscar por email">
 						<div class="input-group-append">
 							<button class="btn btn-primary" type="submit">Buscar</button>
 							
 						</div>
 					</div>
 
-					<!-- Campo de búsqueda de fechas -->
+					<!-- Campo de búsqueda de fechas 
 					<div class="input-group ml-3" style="max-width: 600px">
 						<input type="text" id="fechaDesde" name="fechaDesde"
 							class="form-control" placeholder="Desde " readonly>
@@ -70,6 +106,8 @@
 							<button class="btn btn-primary" type="submit">Buscar</button>
 						</div>
 					</div>
+					
+					-->
 				</form>
 			</div>
 		</div>
@@ -102,24 +140,18 @@
 
 				</thead>
 				<%
-				VentaDAO vDAO = new VentaDAO();
-				ClienteDAO cDAO = new ClienteDAO();
-				LineaVentaDAO lvDAO = new LineaVentaDAO();
-				List<Venta> ventas = vDAO.getAll();
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		
 
-				for (Venta v : ventas) {
-					Cliente c = cDAO.getById(v.getIdCliente());
-					ArrayList<LineaVenta> lineas = lvDAO.getAllByVenta(v.getNroVenta());
-					v.setLineas(lineas);
+				for (Venta venta : ventas) {
+				
 				%>
 				<tbody>
 					<tr>
-						<td><%=v.getNroVenta()%></td>
-						<td><%=c.getNombre() + ", " + c.getApellido()%></td>
-						<td><%=c.getEmail()%></td>
-						<td><%=v.getFecha().format(formatter)%></td>
-						<td><%=v.getTotal()%></td>
+						<td><%=venta.getNroVenta()%></td>
+						<td><%=venta.getCliente().getNombre() + ", " + venta.getCliente().getApellido()%></td>
+						<td><%=venta.getCliente().getEmail()%></td>
+						<td><%=venta.getFecha().format(formatter)%></td>
+						<td><%=venta.getTotal()%></td>
 						<td><a href="" class="btn btn-primary">VER DETALLE</a></td>
 
 

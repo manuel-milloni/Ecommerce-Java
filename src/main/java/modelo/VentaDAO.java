@@ -35,7 +35,7 @@ public class VentaDAO {
             ps = conexion.prepareStatement(sql);
 
             ps.setString(1, v.getFecha().format(formato));
-            ps.setInt(2, v.getIdCliente());
+            ps.setInt(2, v.getCliente().getId());
             ps.setInt(3, v.getNroVenta());
             ps.executeUpdate();
             ps.close();
@@ -61,7 +61,9 @@ public class VentaDAO {
                 LocalDateTime fechaVenta = LocalDateTime.parse(rs.getString(2), formato);
 
                 v.setFecha(fechaVenta);
-                v.setIdCliente(rs.getInt(3));
+                Cliente cliente=new Cliente();
+                cliente.setId(rs.getInt(3));
+                v.setCliente(cliente);
                 v.setNroVenta(rs.getInt("nroVenta"));
                 ventas.add(v);
 
@@ -89,7 +91,9 @@ public class VentaDAO {
                 v.setId(rs.getInt(1));
                 fecha = LocalDateTime.parse(rs.getString(2), formato);
                 v.setFecha(fecha);
-                v.setIdCliente(rs.getInt(3));
+                Cliente cliente=new Cliente();
+                cliente.setId(rs.getInt(3));
+                v.setCliente(cliente);
                 v.setNroVenta(rs.getInt("nroVenta"));
 
             }
@@ -139,32 +143,43 @@ public class VentaDAO {
         return (nroVenta + 1);
 
     }
-
-    public int getIdByFechaAndCliente(Venta venta) {
-        String sql = "SELECT * FROM venta WHERE  fechaVenta=? AND idCliente=?";
-        int id = 0;
-        try {
-            Conexion con = new Conexion();
+    
+    public List<Venta> getByEmail(String email){
+    	String sql="SELECT * FROM venta INNER JOIN cliente ON venta.idCliente=cliente.idCliente WHERE email LIKE '%" +email+ "%' ";
+    	 List<Venta> ventas=new ArrayList<>();
+    	 LocalDateTime fecha;
+    	try {
+    	    Conexion con = new Conexion();
             conexion = con.getConexion();
             ps = conexion.prepareStatement(sql);
-            String fecha = venta.getFecha().format(formato);
-            System.out.println("Fecha: " + fecha);
-            ps.setString(1, fecha);
-            ps.setInt(2, venta.getIdCliente());
-            rs = ps.executeQuery();
-          
-            while (rs.next()) {
-                id = rs.getInt("idVenta");
-
+            rs=ps.executeQuery();
+            while(rs.next()) {
+               Venta venta=new Venta();
+               venta.setId(rs.getInt("idVenta"));
+               fecha=LocalDateTime.parse(rs.getString("fechaVenta"), formato);
+               
+               venta.setFecha(fecha);
+               Cliente cliente=new Cliente();
+               cliente.setId(rs.getInt(3));
+               venta.setCliente(cliente);
+               venta.setNroVenta(rs.getInt("nroVenta"));
+               ventas.add(venta);
+               
+            	
+            	
             }
-              ps.close();
-
-        } catch (SQLException e) {
-            System.out.println(e.toString());
-        }
-
-        return id;
+            ps.close();
+         
+    		 
+    	} catch(SQLException e) {
+    		 System.out.println(e.toString());
+    		
+    	}
+    	   return ventas;
+    	
     }
+
+
     
     
     

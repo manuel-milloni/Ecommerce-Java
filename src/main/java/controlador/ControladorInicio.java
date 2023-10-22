@@ -52,7 +52,7 @@ public class ControladorInicio extends HttpServlet {
 
                 case "buscador": {
                     String descripcion = request.getParameter("buscador");
-                    System.out.println("El texto ingresado a buscar es: " + descripcion);
+                  
                   
                     response.sendRedirect("ControladorInicio?menu=inicio&accion=inicio&buscador="+descripcion);
                   

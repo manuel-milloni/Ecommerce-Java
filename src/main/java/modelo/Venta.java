@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Venta {
 	private int id;
 	private LocalDateTime fecha;
-	private int idCliente;
+	private Cliente cliente;
 	private int nroVenta;
 	private ArrayList<LineaVenta> lineas;
 
@@ -30,13 +30,7 @@ public class Venta {
 		this.fecha = fecha;
 	}
 
-	public int getIdCliente() {
-		return idCliente;
-	}
 
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
-	}
 
 	public int getNroVenta() {
 		return nroVenta;
@@ -54,6 +48,16 @@ public class Venta {
 		this.lineas = lineas;
 	}
 	
+	
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
 	public double getTotal() {
 		double total=0;
 		for(LineaVenta lv: lineas) {

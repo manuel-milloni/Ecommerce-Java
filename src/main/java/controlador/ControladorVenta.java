@@ -41,6 +41,9 @@ public class ControladorVenta extends HttpServlet {
                 
                 case "venta":{
                        if(request.getSession().getAttribute("authEmpleado")!=null){
+                    	    String buscador=request.getParameter("buscador");
+                    	    request.setAttribute("buscador", buscador);
+                    	    System.out.println("Contenido buscador: "+buscador);
                             request.getRequestDispatcher("admin/ventas.jsp").forward(request, response);
                 
                               break;
@@ -68,7 +71,7 @@ public class ControladorVenta extends HttpServlet {
                     LocalDateTime fecha = LocalDateTime.now();
                     venta.setFecha(fecha);
                     Cliente cliente = (Cliente) request.getSession().getAttribute("auth");
-                    venta.setIdCliente(cliente.getId());
+                    venta.setCliente(cliente);
                     int nroVenta = vDAO.getMaxNroVenta();
                     venta.setNroVenta(nroVenta);
 
@@ -105,15 +108,17 @@ public class ControladorVenta extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	    
     	    String cliente=request.getParameter("cliente");
-    	    String fechaDesde=request.getParameter("fechaDesde");
-    	    String fechaHasta=request.getParameter("fechaHasta");
+    	    response.sendRedirect("ControladorVenta?menu=venta&accion=venta&buscador="+cliente);
+    	    
+    	  
     	
     	    
     	    
-    	    System.out.println(" Cliente: "+cliente+"   Fecha desde: "+fechaDesde+"   Fecha Hasta: "+fechaHasta);
+    	  
     	    
-    	    response.sendRedirect("ControladorVenta?menu=venta&accion=venta");
+    	    
 
     }
 
