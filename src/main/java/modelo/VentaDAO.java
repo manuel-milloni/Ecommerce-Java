@@ -137,7 +137,7 @@ public class VentaDAO {
              ps.close();
 
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            System.out.println("Error getMaxNroVenta: "+e.toString());
 
         }
         return (nroVenta + 1);
