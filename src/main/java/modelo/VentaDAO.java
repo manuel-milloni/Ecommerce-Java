@@ -77,7 +77,7 @@ public class VentaDAO {
     }
 
     public Venta getById(int id) {
-        String sql = "SELECT * FROM venta WHERE idVenta=id";
+        String sql = "SELECT * FROM venta WHERE idVenta=?;";
         LocalDateTime fecha;
         Venta v = new Venta();
         try {
@@ -88,18 +88,18 @@ public class VentaDAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                v.setId(rs.getInt(1));
-                fecha = LocalDateTime.parse(rs.getString(2), formato);
+                v.setId(rs.getInt("idVenta"));
+                fecha = LocalDateTime.parse(rs.getString("fechaVenta"), formato);
                 v.setFecha(fecha);
                 Cliente cliente=new Cliente();
-                cliente.setId(rs.getInt(3));
+                cliente.setId(rs.getInt("idCliente"));
                 v.setCliente(cliente);
                 v.setNroVenta(rs.getInt("nroVenta"));
 
             }
-                        ps.close();
+                ps.close();
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            System.out.println("Error al traer venta: "+e.toString());
         }
         return v;
 

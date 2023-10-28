@@ -140,7 +140,7 @@ public class ClienteDAO {
             }
             ps.close();
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            System.out.println("Error al traer Cliente: "+e.toString());
         }
         return cli;
 

@@ -152,7 +152,7 @@
 						<td><%=venta.getCliente().getEmail()%></td>
 						<td><%=venta.getFecha().format(formatter)%></td>
 						<td><%=venta.getTotal()%></td>
-						<td><a href="" class="btn btn-primary">VER DETALLE</a></td>
+						<td><a href="ControladorVenta?menu=venta&accion=detalle&id=<%=venta.getId()%>" class="btn btn-primary">VER DETALLE</a></td>
 
 
 

@@ -13,11 +13,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.Carrito;
 import modelo.Cliente;
+import modelo.ClienteDAO;
+import modelo.EmpleadoDAO;
+import modelo.LineaPedidoDAO;
 import modelo.LineaVenta;
 import modelo.LineaVentaDAO;
+import modelo.Pedido;
+import modelo.PedidoDAO;
 import modelo.Venta;
 import modelo.VentaDAO;
 import modelo.ProductoDAO;
+import modelo.ProveedorDAO;
 
 @WebServlet("/ControladorVenta")
 public class ControladorVenta extends HttpServlet {
@@ -100,6 +106,19 @@ public class ControladorVenta extends HttpServlet {
                     }
 
                 }
+                
+	        	  case "detalle":{
+	        		    int id=Integer.parseInt(request.getParameter("id"));
+	        		    Venta venta=vDAO.getById(id);
+	        		    ClienteDAO cDAO=new ClienteDAO();
+	        		    venta.setCliente(cDAO.getById(venta.getCliente().getId()));
+	        		    venta.setLineas(lvDAO.getAllByVenta(venta.getNroVenta()));
+	        		    request.setAttribute("venta", venta);
+	        		    request.getRequestDispatcher("admin/detalleVenta.jsp").forward(request, response);
+	        		    break;
+	        		    
+	        		  
+	        	  }
             }
         }
 
