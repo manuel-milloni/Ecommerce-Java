@@ -6,12 +6,15 @@ import java.io.IOException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.Carrito;
+import modelo.Categoria;
 import modelo.Cliente;
 import modelo.ClienteDAO;
 import modelo.EmpleadoDAO;
@@ -114,9 +117,40 @@ public class ControladorVenta extends HttpServlet {
 	        		    venta.setCliente(cDAO.getById(venta.getCliente().getId()));
 	        		    venta.setLineas(lvDAO.getAllByVenta(venta.getNroVenta()));
 	        		    request.setAttribute("venta", venta);
-	        		    request.getRequestDispatcher("admin/detalleVenta.jsp").forward(request, response);
+	        		    if(request.getSession().getAttribute("auth")!=null) {
+	        		    	request.getRequestDispatcher("detalleVentaCliente.jsp").forward(request, response);	
+	        		    	break;
+	        		    }
+	        		    
+	        		    if(request.getSession().getAttribute("authEmpleado")!=null) {
+	        		    	 request.getRequestDispatcher("admin/detalleVenta.jsp").forward(request, response);
+	        		    	 break;
+	        		    }
+	        		   
 	        		    break;
 	        		    
+	        		  
+	        	  }
+	        	  
+	        	  case "misPedidos":{
+	                  if (request.getSession().getAttribute("auth") != null) {
+	                         Cliente cliente=(Cliente)request.getSession().getAttribute("auth");
+	                         List<Venta> ventas=vDAO.getByCliente(cliente);
+	                         for(Venta venta: ventas) {
+	                        	  venta.setLineas(lvDAO.getAllByVenta(venta.getNroVenta()));
+	                        	 
+	                         }
+	                         request.setAttribute("ventas", ventas);
+	                         request.getRequestDispatcher("misPedidos.jsp").forward(request, response);
+	                       
+	                        break;
+
+	                    } else {
+	                        request.getRequestDispatcher("login.jsp").forward(request, response);
+	                        break;
+	                    }
+	        		  
+	        		  
 	        		  
 	        	  }
             }

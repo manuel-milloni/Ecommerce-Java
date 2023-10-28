@@ -178,6 +178,39 @@ public class VentaDAO {
     	   return ventas;
     	
     }
+    
+    public List<Venta> getByCliente(Cliente cliente) {
+        String sql = "SELECT * FROM venta WHERE idCliente=?;";
+        List<Venta> ventas = new ArrayList<>();
+        try {
+            Conexion con = new Conexion();
+            conexion = con.getConexion();
+            ps = conexion.prepareStatement(sql);
+            ps.setInt(1,cliente.getId());
+            rs = ps.executeQuery();
+          
+            while (rs.next()) {
+                Venta v = new Venta();
+                v.setId(rs.getInt(1));
+                LocalDateTime fechaVenta = LocalDateTime.parse(rs.getString(2), formato);
+
+                v.setFecha(fechaVenta);
+                
+                
+                v.setCliente(cliente);
+                v.setNroVenta(rs.getInt("nroVenta"));
+                ventas.add(v);
+
+            }
+              ps.close();
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+        return ventas;
+
+    }
+    
+    
 
 
     
