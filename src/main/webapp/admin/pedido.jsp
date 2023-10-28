@@ -30,7 +30,7 @@
   
    List<Pedido> pedidos;
    if(buscador!=null && !buscador.equals("")){
-	   pedidos=pDAO.getAll();
+	   pedidos=pDAO.getByProveedor(buscador);
 	    
 	   
    } else {
@@ -45,7 +45,7 @@
 		   pedido.setEmpleado(empleado);
 		   Proveedor proveedor=provDAO.getById(pedido.getProveedor().getIdProveedor());
 		   pedido.setProveedor(proveedor);
-		   ArrayList<LineaPedido> lineas = lpDAO.getAllByPedido(pedido.getIdPedido());
+		   ArrayList<LineaPedido> lineas = lpDAO.getAllByPedido(pedido.getNroPedido());
 		  pedido.setLineasPedido(lineas); 
 		   
 		   
@@ -62,11 +62,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Pedidos</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-	crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -81,11 +77,11 @@
         <!-- -----------------------------------BUSCADOR -----------------------------------  -->
 <div class="container">
     <div class="text-center">
-        <form action="ControladorVenta?menu=venta&accion=buscar" method="post"
+        <form action="ControladorPedido?menu=pedido&accion=buscador" method="post"
             class="d-flex justify-content-between align-items-center">
             <!-- Campo de búsqueda de cliente -->
             <div class="input-group" style="max-width: 400px">
-                <input type="text" id="cliente" name="cliente"
+                <input type="text" id="buscador" name="buscador"
                     class="form-control" placeholder="Buscar por proveedor">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">Buscar</button>
@@ -97,12 +93,32 @@
     <a class="btn btn-primary" href="ControladorPedido?menu=pedido&accion=nuevoPedido">Realizar Pedido</a>
 </div>
 
+
+
 </div>
+
+
 
 
 		<br>
 
 		<div class="text-center">
+		
+        <% if(request.getSession().getAttribute("mensajeExito")!=null){%>
+        	 <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong><%= request.getSession().getAttribute("mensajeExito")%></strong>
+            <% request.getSession().setAttribute("mensajeExito", null);  %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div> 
+           <% } %>
+           
+                     <% if(request.getSession().getAttribute("mensajeError")!=null){%>
+        	 <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong><%= request.getSession().getAttribute("mensajeError")%></strong>
+            <% request.getSession().setAttribute("mensajeError", null);  %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+           <% } %>
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -134,7 +150,7 @@
 						<td><%=pedido.getProveedor().getRazonSocial()%></td>
 						
 						
-						<td><a href="" class="btn btn-primary">VER DETALLE</a></td>
+						<td><a href="ControladorPedido?menu=pedido&accion=detalle&id=<%=pedido.getIdPedido()%>" class="btn btn-primary">VER DETALLE</a></td>
 
 
 

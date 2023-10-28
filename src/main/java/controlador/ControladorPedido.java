@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import modelo.Carrito;
 import modelo.Empleado;
+import modelo.EmpleadoDAO;
+
 import modelo.LineaPedido;
 import modelo.LineaPedidoDAO;
 import modelo.Pedido;
@@ -37,6 +39,7 @@ public class ControladorPedido extends HttpServlet {
 	        if(menu.equals("pedido")){
 	        	  switch(accion) {
 	        	  case "pedido":{
+	        		  request.setAttribute("buscador", request.getParameter("buscador"));
 	        		   request.getRequestDispatcher("admin/pedido.jsp").forward(request, response) ;
 	        		  break;
 	        	  }
@@ -44,11 +47,31 @@ public class ControladorPedido extends HttpServlet {
 	        	  case "nuevoPedido":{
 	        		  
 	        		 
-	        		   request.setAttribute("buscador", request.getParameter("buscador"));
-	        		  
+	        		
+	        		  request.setAttribute("buscador", request.getParameter("buscador"));
 	        		   request.getRequestDispatcher("admin/nuevoPedido.jsp").forward(request, response);
-	        		   System.out.println("Ejecuto bien");
+	        		 
 	        		   break;
+	        		  
+	        	  }
+	        	  
+	        	  case "detalle":{
+	        		    int id=Integer.parseInt(request.getParameter("id"));
+	        		    PedidoDAO pDAO=new PedidoDAO();
+	        		   
+	        		    Pedido pedido=pDAO.getById(id);
+	        		    EmpleadoDAO eDAO= new EmpleadoDAO();
+	        		    ProveedorDAO provDAO=new ProveedorDAO();
+	        		    LineaPedidoDAO lpDAO=new LineaPedidoDAO();
+	        		   
+	        		  
+	        		    pedido.setEmpleado(eDAO.getById(pedido.getEmpleado().getId()));
+	        		    pedido.setProveedor(provDAO.getById(pedido.getProveedor().getIdProveedor()));
+	        		    pedido.setLineasPedido(lpDAO.getAllByPedido(pedido.getNroPedido()));
+	        		    request.setAttribute("pedido", pedido);
+	        		    request.getRequestDispatcher("admin/detallePedido.jsp").forward(request, response);
+	        		    break;
+	        		    
 	        		  
 	        	  }
 	        	   
@@ -68,13 +91,22 @@ public class ControladorPedido extends HttpServlet {
         String accion = request.getParameter("accion");
         if(menu.equals("pedido")) {
         	  switch(accion) {
-              case "buscador":{
+              case "buscadornp":{
               	   String buscador=request.getParameter("buscador");
               	   response.sendRedirect("ControladorPedido?menu=pedido&accion=nuevoPedido&buscador="+buscador);
               	   break;
               	   
               	
               }
+              
+              case "buscador":{
+             	   String buscador=request.getParameter("buscador");
+             	   System.out.println("Buscador: "+buscador);
+             	   response.sendRedirect("ControladorPedido?menu=pedido&accion=pedido&buscador="+buscador);
+             	   break;
+             	   
+             	
+             }
               
               case "registrar":{
             	
@@ -128,12 +160,13 @@ public class ControladorPedido extends HttpServlet {
                                   lpDAO.save(lp);
                                   
                               }
-                              
+                              request.getSession().setAttribute("carritoPedido", null);
+                              request.getSession().setAttribute("mensajeExito", "Pedido generado exitosamente");
                               response.sendRedirect("ControladorPedido?menu=pedido&accion=pedido"); 
               		        break;
               		  
               	           } else {
-              	        	   System.out.println("Error al generar el pedido");
+              	        	 request.getSession().setAttribute("mensajeError", "Error al generar el pedido");
               	        	   response.sendRedirect("ControladorPedido?menu=pedido&accion=pedido");
               	        	   break;
               	           }

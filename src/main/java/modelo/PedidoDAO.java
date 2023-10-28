@@ -138,10 +138,10 @@ public class PedidoDAO {
 				 fecha=LocalDate.parse(rs.getString("fechaPedido"));
 				 pedido.setFecha(fecha);
 				 Empleado emp=new Empleado();
-				 emp.setId(rs.getInt("idempleado"));
+				 emp.setId(rs.getInt("idEmpleado"));
 				 pedido.setEmpleado(emp);
 				 Proveedor proveedor=new Proveedor();
-				 proveedor.setIdProveedor(rs.getInt("idProveedor"));
+				 proveedor.setIdProveedor(rs.getInt("pedido.idProveedor"));
 				 pedido.setProveedor(proveedor);
 				 pedido.setNroPedido(rs.getInt("NroPedido"));
 				 pedidos.add(pedido);
@@ -151,10 +151,47 @@ public class PedidoDAO {
 			 ps.close();
 	    	
 	    }catch(SQLException e) {
-	    	 System.out.println(e.toString());
+	    	 System.out.println("Error en getByProveedor: "+e.toString());
 	    	
 	    }
 	    return pedidos;
+	
+	
+}
+	
+	
+	public Pedido getById(int id){
+	    String sql="SELECT * FROM pedido WHERE idPedido=?;";
+	    Pedido pedido=null;
+	    LocalDate fecha;
+	    try {
+	    	 Conexion con= new Conexion();
+			 conexion=con.getConexion();
+			 ps=conexion.prepareStatement(sql);
+			 ps.setInt(1, id);
+			 rs=ps.executeQuery();
+			 while(rs.next()) {
+				 pedido=new Pedido();
+				 pedido.setIdPedido(rs.getInt("idPedido"));
+				 fecha=LocalDate.parse(rs.getString("fechaPedido"));
+				 pedido.setFecha(fecha);
+				 Empleado emp=new Empleado();
+				 emp.setId(rs.getInt("idempleado"));
+				 pedido.setEmpleado(emp);
+				 Proveedor proveedor=new Proveedor();
+				 proveedor.setIdProveedor(rs.getInt("idProveedor"));
+				 pedido.setProveedor(proveedor);
+				 pedido.setNroPedido(rs.getInt("NroPedido"));
+				
+			 }
+			 ps.close();
+	    	
+	    }catch(SQLException e) {
+	    	 System.out.println(e.toString());
+	    	
+	    }
+	    return pedido;
+		 
 	
 	
 }

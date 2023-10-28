@@ -32,21 +32,21 @@ public class LineaPedidoDAO {
 
 	}
 
-	public ArrayList<LineaPedido> getAllByPedido(int id) {
-		String sql = "SELECT * FROM linea_de_pedido WHERE idPedido=?;";
+	public ArrayList<LineaPedido> getAllByPedido(int nroPedido) {
+		String sql = "SELECT * FROM linea_de_pedido WHERE nroPedido=?;";
 		ArrayList<LineaPedido> lineas = new ArrayList<>();
 		try {
 			Conexion con = new Conexion();
 			conexion = con.getConexion();
 			ps = conexion.prepareStatement(sql);
-			ps.setInt(1, id);
+			ps.setInt(1, nroPedido);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				LineaPedido lp = new LineaPedido();
 				lp.setIdLineaPedido(rs.getInt("idLineaPedido"));
 				lp.setCantProducto(rs.getInt("cantProducto"));
 
-				lp.setNroPedido(rs.getInt("NroPedido"));
+				lp.setNroPedido(rs.getInt("nroPedido"));
 				lp.setIdProducto(rs.getInt("idProducto"));
 				lineas.add(lp);
 

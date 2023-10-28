@@ -53,11 +53,11 @@ request.setAttribute("proveedores" ,proveedores);
 	<div class="container text-center">
 		<div class="row mt-3">
 			<div class="col-12">
-				<form action="ControladorPedido?menu=pedido&accion=buscador"
+				<form action="ControladorPedido?menu=pedido&accion=buscadornp"
 					method="post">
 					<div class="input-group" style="max-width: 400px; margin: 0 auto;">
 						<input type="text" name="buscador" id="buscador"
-							class="form-control" placeholder="Buscar...">
+							class="form-control" placeholder="Buscar por desc...">
 						<button class="btn btn-primary" type="submit">Buscar</button>
 					</div>
 				</form>
