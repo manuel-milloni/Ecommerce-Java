@@ -31,3 +31,29 @@ Regularidad
 |**Listado complejo**|0|1(\*)|1\. Listado de los productos por descripción.|
 
 (\*) los grupos de 3 y 4 integrantes deben elegir entre 1 listado complejo o 3 simples para regularizar.
+
+
+Aprobación Directa
+
+
+
+|**Requerimiento**|**cant. mín. 1 o 2 integ**|**cant. mín. 3 o 4 integ**|**Detalle/Listado de casos incluídos**|
+| - | - | - | - |
+|**ABMC**|Todos|Todos|<p>1. ABMC Empleados</p><p>2. ABMC Pedidos</p><p>3. ABMC Cliente</p><p>4. ABMC Venta</p><p>5. ABMC Productos</p><p>6. ABMC Proveedor</p><p>7. ABMC Linea de venta</p><p>8. ABMC Tipo producto</p><p>9. ABMC Rol</p><p>10. ABMC Categoria</p><p>11. ABMC Linea de pedido</p>|
+|**CU “Complejo” (nivel resumen)**|1|2|<p>1. CUR Registrar una venta</p><p>2. CUR Realizar un pedido</p>|
+|**Listado complejo**|1|2|<p>1. Listado de los productos por descripción.</p><p>2. Listado de los proveedores por Razón Social</p>|
+|**Nivel de acceso**|2|2|<p>1. Empleado</p><p>2. Administrador</p>|
+|**Manejo de errores**|Obligatorio|Obligatorio|No requiere detalle|
+|**Requerimiento extra obligatorio (\*\*)**|0|1|1\. Manejo de archivos|
+|**Publicar el sitio**|Obligatorio|Obligatorio|No requiere detalle|
+
+(\*\*) sólo grupos de 3 y 4 integrantes
+
+Requerimientos extra - AD
+
+|**Requerimiento**|**Detalle/Listado de casos incluídos**|
+| - | - |
+|**Manejo de archivos**|1\. Los productos cuentan con sus imágenes.|
+|**Custom exceptions**||
+|**Log de errores**||
+|**Envío de emails**||
