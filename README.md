@@ -11,7 +11,7 @@ Milloni Manuel - 40514
 
 - Enunciado general del tp. Uno o dos párrafos describiendo el sistema.
 
-Un local de venta de componentes de PC nos pidió que le desarrollásemos una página web. Esta le permitirá a un cliente ingresar y realizar una compra. A un empleado dar de alta, baja o modificar productos, gestionar su stock, y administrar a los clientes. Además, un administrador podrá dar de alta, baja o modificar empleados, dar de alta, baja o modificar proveedores, realizar pedidos a proveedores y también podrá realizar las funciones que realiza un empleado.
+Un local de venta de componentes de PC nos pidió que le desarrollásemos una página web. Esta le permitirá a un cliente ingresar y realizar una compra de los productos que desee. Un empleado podrá administrar los productos, administrar a los clientes y realizar pedidos a un proveedor. Además, un administrador podrá administrar a los empleados, administrar a los proveedores y también podrá realizar las funciones que realiza un empleado.
 
 - Imagen con un borrador del modelo de dominio/modelo de datos.
 
