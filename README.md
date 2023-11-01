@@ -26,7 +26,7 @@ Regularidad
 
 |**Requerimiento**|**cant. mín. 1 o 2 integ**|**cant. mín. 3 o 4 integ**|**Detalle/Listado de casos incluídos**|
 | - | - | - | - |
-|**ABMC Simple**|1 x integ|1 x integ|<p>1. ABMC TipoProducto</p><p>&emsp;2. ABMC Proveedor</p><p>&emsp;3. ABMC Rol</p><p>&emsp;4. ABMC Categoría</p>|
+|**ABMC Simple**|1 x integ|1 x integ|<p>1. ABMC TipoProducto</p><p>&emsp;2. ABMC Proveedor</p><p>&emsp;3. ABMC Categoría</p>|
 |**ABMC Dependiente**|1|2|<p>1. ABMC Cliente {depende de } ABMC Categoría</p><p>2. ABMC Producto {depende de} ABMC Tipo producto</p>|
 |**CU NO-ABMC**|1|2|<p>1. CUU Registrar una venta</p><p>2. CUU Realizar un pedido</p>|
 |**Listado simple**|1|3(\*)|1\. Listado de los productos|
