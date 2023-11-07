@@ -15,7 +15,8 @@ Un local de venta de componentes de PC nos pidió que le desarrollásemos una p�
 
 - Imagen con un borrador del modelo de dominio/modelo de datos.
 
-![Modelo de Dominio - v1 3 (1)](https://github.com/manuel-milloni/Ecommerce-Java/assets/128518865/5d8256ec-1611-40e3-8a95-9c9746ae8039)
+![Entrega Inicial v1 2 - Modelo de Dominio](https://github.com/manuel-milloni/Ecommerce-Java/assets/128518865/8afc7a7c-d12f-4fd6-a95d-6389307b077f)
+
 
 
 **CHECKLIST**
