@@ -34,9 +34,10 @@
         
         <%@include file="estructura/nav.jsp" %>    
         <div class="container">
-                <% if (request.getAttribute("mensajeError") != null) { %>
+                <% if (request.getSession().getAttribute("mensajeError") != null) { %>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong><%= request.getAttribute("mensajeError") %></strong>
+                    <strong><%= request.getSession().getAttribute("mensajeError") %></strong>
+                     <%request.getSession().setAttribute("mensajeError", null);  %>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                  </div>
         <% } %>
@@ -96,7 +97,7 @@
                         
                         <div class="form-group">
                             <label>Contraseña</label>
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Ingrese su contraseña" maxlength="30"  required>
+                            <input type="password" class="form-control" name="password_1" id="password_1" placeholder="Ingrese su contraseña" maxlength="30"  required>
                         </div>
                         
                         <div class="form-group">

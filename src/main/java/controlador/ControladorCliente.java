@@ -95,6 +95,8 @@ public class ControladorCliente extends HttpServlet {
             switch (accion) {
                 case "NuevoCliente": {
                     Cliente cli = new Cliente();
+                   
+                  
                     String password_1 = request.getParameter("password_1");
                     String password_2 = request.getParameter("password_2");
                     if (password_1.equals(password_2)) {
@@ -114,28 +116,49 @@ public class ControladorCliente extends HttpServlet {
 
                         if (cDAO.save(cli)) {
                             
-
-                                request.getSession().setAttribute("mensajeExito", "Cliente agregado exitosamente");
-                                response.sendRedirect("ControladorCliente?menu=Cliente&accion=Cliente");
-                                break;
+                                if(request.getSession().getAttribute("authEmpleado")!=null) {
+                                	request.getSession().setAttribute("mensajeExito", "Cliente agregado exitosamente");
+                                    response.sendRedirect("ControladorCliente?menu=Cliente&accion=Cliente");
+                                    break;	
+                                	
+                                } else {
+                                	 response.sendRedirect("login.jsp");
+                                	 break;
+                                	
+                                }
+                                
                               
                          
                         } else {
 
-                         
-                                request.getSession().setAttribute("mensajeError", "Error al ingresar cliente");
-                                response.sendRedirect("ControladorCliente?menu=Cliente&accion=Cliente");
-                                break;
+                        	 if(request.getSession().getAttribute("authEmpleado")!=null) {
+                        		 request.getSession().setAttribute("mensajeError", "Error al ingresar cliente");
+                                 response.sendRedirect("ControladorCliente?menu=Cliente&accion=Cliente");
+                                 break; 
+                        		 
+                        	 } else {
+                        		 request.getSession().setAttribute("mensajeError", "Error al al registrarse");
+                        		 response.sendRedirect("registro.jsp");
+                                 break;
+                        		 
+                        	 }
+                               
                            
                    
                         }
 
                     } else {
 
-                       
+                    	 if(request.getSession().getAttribute("authEmpleado")!=null) {
                             request.getSession().setAttribute("mensajeError", "Las contrasenas deben coincidir");
                             response.sendRedirect("ControladorCliente?menu=Cliente&accion=Cliente");
                             break;
+                    	 } else {
+                    		 request.getSession().setAttribute("mensajeError", "Error al al registrarse");
+                    		 response.sendRedirect("registro.jsp");
+                             break;
+                    		 
+                    	 }
                           
                       
                         }
