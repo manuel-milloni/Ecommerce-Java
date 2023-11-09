@@ -78,9 +78,19 @@ public class ControladorEmpleado extends HttpServlet {
                 }
 
                 case "Eliminar": {
-                    eDAO.delete(Integer.parseInt(request.getParameter("id")));
-                    request.getRequestDispatcher("ControladorEmpleado?menu=Empleado&accion=Empleado").forward(request, response);
-                    break;
+                	
+                    if(eDAO.delete(Integer.parseInt(request.getParameter("id")))) {
+                    	 request.getSession().setAttribute("mensajeExito", "Empleado eliminado exitosamente");
+                    	 request.getRequestDispatcher("ControladorEmpleado?menu=Empleado&accion=Empleado").forward(request, response);
+                         break;
+                    	
+                    } else {
+                    	request.getSession().setAttribute("mensajeError", "Error al eliminar empleado");
+                    	request.getRequestDispatcher("ControladorEmpleado?menu=Empleado&accion=Empleado").forward(request, response);
+                        break;
+                    	
+                    }
+                   
 
                 }
 

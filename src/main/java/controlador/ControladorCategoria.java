@@ -75,6 +75,7 @@ public class ControladorCategoria extends HttpServlet {
                     } else {
                     	request.setAttribute("mensajeError", "Error al eliminar categoria");
                     	request.getRequestDispatcher("ControladorCategoria?menu=Categoria&accion=Categoria").forward(request, response);
+                    	break;
                     	
                     }
                     

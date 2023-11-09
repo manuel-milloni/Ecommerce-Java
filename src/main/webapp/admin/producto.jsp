@@ -29,6 +29,14 @@
     </div>
         <% } %>
         
+                <% if (request.getSession().getAttribute("mensajeError") != null) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong><%= request.getSession().getAttribute("mensajeError") %></strong>
+         <% request.getSession().setAttribute("mensajeError", null); %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+        <% } %>
+        
         <form action="Controlador?menu=Producto&accion=NuevoProducto" method="post" enctype="multipart/form-data">
             
             <div class="form-group row">

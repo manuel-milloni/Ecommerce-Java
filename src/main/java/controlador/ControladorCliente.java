@@ -61,9 +61,17 @@ public class ControladorCliente extends HttpServlet {
                 }
 
                 case "Eliminar": {
-                    cDAO.delete(Integer.parseInt(request.getParameter("id")));
-                    request.getRequestDispatcher("ControladorCliente?menu=Cliente&accion=Cliente").forward(request, response);
-                    break;
+                    if(cDAO.delete(Integer.parseInt(request.getParameter("id")))) {
+                    	request.getRequestDispatcher("ControladorCliente?menu=Cliente&accion=Cliente").forward(request, response);
+                        break;     	
+                    	
+                    } else {
+                    	request.getSession().setAttribute("mensajeError", "Error al eliminar cliente");
+                    	request.getRequestDispatcher("ControladorCliente?menu=Cliente&accion=Cliente").forward(request, response);
+                        break; 
+                    	
+                    }
+                    
 
                 }
 

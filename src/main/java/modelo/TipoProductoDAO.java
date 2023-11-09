@@ -86,7 +86,7 @@ public class TipoProductoDAO {
         return tp;
     }
 
-    public void delete(int id) {
+    public boolean delete(int id) {
         String sql = "DELETE FROM tipo_producto WHERE idTipo=?";
         try {
             Conexion con = new Conexion();
@@ -96,8 +96,10 @@ public class TipoProductoDAO {
             ps.setInt(1, id);
             ps.executeUpdate();
             ps.close();
+            return true;
         } catch (SQLException e) {
             System.out.println(e.toString());
+            return false;
         }
 
     }

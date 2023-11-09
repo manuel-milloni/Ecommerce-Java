@@ -66,9 +66,16 @@ public class Controlador extends HttpServlet {
 			}
 			
 			  case "Eliminar": {
-                  pDAO.delete(Integer.parseInt(request.getParameter("id")));
-                  request.getRequestDispatcher("Controlador?menu=Producto&accion=Producto").forward(request, response);
-                  break;
+                  if(pDAO.delete(Integer.parseInt(request.getParameter("id")))) {
+                	  request.getRequestDispatcher("Controlador?menu=Producto&accion=Producto").forward(request, response);
+                      break;  
+                	  
+                  }else {
+                	  request.getSession().setAttribute("mensajeError", "Error al eliminar producto");
+                	  request.getRequestDispatcher("Controlador?menu=Producto&accion=Producto").forward(request, response);
+                      break;
+                  }
+                  
 
               }
 

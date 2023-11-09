@@ -228,7 +228,7 @@ public class ProductoDAO {
         
     }
     
-    public void delete(int id) {
+    public boolean delete(int id) {
     	String sql="DELETE FROM producto WHERE idProducto=?;";
     	try {
     		  Conexion con=new Conexion();
@@ -237,9 +237,11 @@ public class ProductoDAO {
     	         ps.setInt(1, id);
     	         ps.executeUpdate();
     	         ps.close();
+    	         return true;
     		
     	} catch(SQLException e) {
     		System.out.println(e.toString());
+    		return false;
     	}
     	
     	

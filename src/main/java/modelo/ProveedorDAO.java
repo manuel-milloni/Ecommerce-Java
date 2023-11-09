@@ -93,7 +93,7 @@ public class ProveedorDAO {
         return prov;
     }
 
-    public void delete(int id) {
+    public boolean delete(int id) {
         String sql = "DELETE FROM proveedor WHERE idProveedor=?";
         try {
             Conexion con = new Conexion();
@@ -102,8 +102,10 @@ public class ProveedorDAO {
             ps.setInt(1, id);
             ps.executeUpdate();
             ps.close();
+            return true;
         } catch (SQLException e) {
             System.out.println(e.toString());
+            return false;
         }
     }
 

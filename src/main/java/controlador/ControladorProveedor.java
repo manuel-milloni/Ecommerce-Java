@@ -75,9 +75,20 @@ public class ControladorProveedor extends HttpServlet {
                 
               
                  case "Eliminar":{
-             pDAO.delete(Integer.parseInt(request.getParameter("id")));
-             request.getRequestDispatcher("ControladorProveedor?menu=Proveedor&accion=Proveedor").forward(request, response);
-             break;
+                	 
+             if(pDAO.delete(Integer.parseInt(request.getParameter("id")))) {
+            	 request.getSession().setAttribute("mensajeExito", "Proveedor eliminado exitosamente");
+            	 request.getRequestDispatcher("ControladorProveedor?menu=Proveedor&accion=Proveedor").forward(request, response);
+                 break;	 
+            	 
+             } else {
+            	 request.getSession().setAttribute("mensajeError", "Error al eliminar Proveedor");
+            	 request.getRequestDispatcher("ControladorProveedor?menu=Proveedor&accion=Proveedor").forward(request, response);
+                 break;	 
+            	 
+            	 
+             }
+             
             
              
                     }

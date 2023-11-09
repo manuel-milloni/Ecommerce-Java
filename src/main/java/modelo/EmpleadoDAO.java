@@ -102,7 +102,7 @@ public class EmpleadoDAO {
 
     }
 
-    public void delete(int id) {
+    public boolean delete(int id) {
         String sql = "DELETE FROM empleado WHERE idEmpleado=?";
         try {
             Conexion con = new Conexion();
@@ -111,8 +111,10 @@ public class EmpleadoDAO {
             ps.setInt(1, id);
             ps.executeUpdate();
             ps.close();
+            return true;
         } catch (SQLException e) {
             System.out.println(e.toString());
+            return false;
         }
     }
 

@@ -16,10 +16,18 @@
                <div class="card-body">
         <h2>Proveedores</h2>
         
-         <% if (request.getSession().getAttribute("mensaje") != null) { %>
+         <% if (request.getSession().getAttribute("mensajeExito") != null) { %>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong><%= request.getSession().getAttribute("mensaje") %></strong>
-         <% request.getSession().setAttribute("mensaje", null); %>
+        <strong><%= request.getSession().getAttribute("mensajeExito") %></strong>
+         <% request.getSession().setAttribute("mensajeExito", null); %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+        <% } %>
+        
+                 <% if (request.getSession().getAttribute("mensajeError") != null) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong><%= request.getSession().getAttribute("mensajeError") %></strong>
+         <% request.getSession().setAttribute("mensajeError", null); %>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
         <% } %>

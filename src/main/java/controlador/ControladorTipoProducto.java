@@ -16,101 +16,112 @@ import modelo.TipoProductoDAO;
 @WebServlet("/ControladorTipoProducto")
 public class ControladorTipoProducto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    TipoProductoDAO tpDAO = new TipoProductoDAO();
-    List<TipoProducto> tiposProducto = new ArrayList<>();
-    TipoProducto tp = new TipoProducto();
+	TipoProductoDAO tpDAO = new TipoProductoDAO();
+	List<TipoProducto> tiposProducto = new ArrayList<>();
+	TipoProducto tp = new TipoProducto();
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-    }
+	}
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String menu = request.getParameter("menu");
-        String accion = request.getParameter("accion");
-        if (menu.equals("TipoProducto")) {
-            switch (accion) {
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String menu = request.getParameter("menu");
+		String accion = request.getParameter("accion");
+		if (menu.equals("TipoProducto")) {
+			switch (accion) {
 
-                case "TipoProducto": {
-                      if(request.getSession().getAttribute("authEmpleado")!=null){
-                          tiposProducto = tpDAO.getAll();
-                    request.setAttribute("tiposProducto", tiposProducto);
-                    request.getRequestDispatcher("admin/tipoProducto.jsp").forward(request, response);
-                    break;
-                    
-                    } else {
-                        request.getRequestDispatcher("Admin").forward(request, response);
-                        break;
-                      
-                      }
-                   
-                }
+			case "TipoProducto": {
+				if (request.getSession().getAttribute("authEmpleado") != null) {
+					tiposProducto = tpDAO.getAll();
+					request.setAttribute("tiposProducto", tiposProducto);
+					request.getRequestDispatcher("admin/tipoProducto.jsp").forward(request, response);
+					break;
 
-                case "Editar": {
-                    tp = tpDAO.getById(Integer.parseInt(request.getParameter("id")));
-                    request.setAttribute("TipoProducto", tp);
-                    request.getRequestDispatcher("ControladorTipoProducto?menu=TipoProducto&accion=tipoproductomodificar").forward(request, response);
-                    break;
+				} else {
+					request.getRequestDispatcher("Admin").forward(request, response);
+					break;
 
-                }
+				}
 
-                case "tipoproductomodificar": {
-                    tiposProducto = tpDAO.getAll();
-                    request.setAttribute("tiposProducto", tiposProducto);
-                  
+			}
 
-                    request.getRequestDispatcher("admin/tipoProductoModificar.jsp").forward(request, response);
-                    break;
-                }
+			case "Editar": {
+				tp = tpDAO.getById(Integer.parseInt(request.getParameter("id")));
+				request.setAttribute("TipoProducto", tp);
+				request.getRequestDispatcher("ControladorTipoProducto?menu=TipoProducto&accion=tipoproductomodificar")
+						.forward(request, response);
+				break;
 
-                case "Eliminar": {
-                    tpDAO.delete(Integer.parseInt(request.getParameter("id")));
-                    request.getRequestDispatcher("ControladorTipoProducto?menu=TipoProducto&accion=TipoProducto").forward(request, response);
-                    break;
+			}
 
-                }
+			case "tipoproductomodificar": {
+				tiposProducto = tpDAO.getAll();
+				request.setAttribute("tiposProducto", tiposProducto);
 
-                default: {
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
-                    break;
-                }
-            }
-        }
+				request.getRequestDispatcher("admin/tipoProductoModificar.jsp").forward(request, response);
+				break;
+			}
 
-    }
+			case "Eliminar": {
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String menu = request.getParameter("menu");
-        String accion = request.getParameter("accion");
-        if (menu.equals("TipoProducto")) {
-            switch (accion) {
-                case "NuevoTipoProducto": {
-                    tpDAO.save(request.getParameter("descripcion"));
-                    request.getSession().setAttribute("mensaje", "El tipo de producto se ha agregado exitosamente");
-                    response.sendRedirect("ControladorTipoProducto?menu=TipoProducto&accion=TipoProducto");
-                    break;
+				if (tpDAO.delete(Integer.parseInt(request.getParameter("id")))) {
+					request.getSession().setAttribute("mensajeExito", "Tipo Producto eliminado exitosamente");
+					request.getRequestDispatcher("ControladorTipoProducto?menu=TipoProducto&accion=TipoProducto")
+							.forward(request, response);
+					break;
+				} else {
 
-                }
-                case "modificar": {
-                    tp.setIdTipo(Integer.parseInt(request.getParameter("id")));
-                    tp.setDescripcion(request.getParameter("descripcion"));
-                    tpDAO.update(tp);
-                    response.sendRedirect("ControladorTipoProducto?menu=TipoProducto&accion=TipoProducto");
-                    break;
-                }
+					request.getSession().setAttribute("mensajeError", "Error al eliminar Tipo Producto");
+					request.getRequestDispatcher("ControladorTipoProducto?menu=TipoProducto&accion=TipoProducto")
+							.forward(request, response);
+					break;
 
-            }
-        }
+				}
 
-    }
+			}
 
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+			default: {
+				request.getRequestDispatcher("index.jsp").forward(request, response);
+				break;
+			}
+			}
+		}
+
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String menu = request.getParameter("menu");
+		String accion = request.getParameter("accion");
+		if (menu.equals("TipoProducto")) {
+			switch (accion) {
+			case "NuevoTipoProducto": {
+				tpDAO.save(request.getParameter("descripcion"));
+				request.getSession().setAttribute("mensaje", "El tipo de producto se ha agregado exitosamente");
+				response.sendRedirect("ControladorTipoProducto?menu=TipoProducto&accion=TipoProducto");
+				break;
+
+			}
+			case "modificar": {
+				tp.setIdTipo(Integer.parseInt(request.getParameter("id")));
+				tp.setDescripcion(request.getParameter("descripcion"));
+				tpDAO.update(tp);
+				response.sendRedirect("ControladorTipoProducto?menu=TipoProducto&accion=TipoProducto");
+				break;
+			}
+
+			}
+		}
+
+	}
+
+	@Override
+	public String getServletInfo() {
+		return "Short description";
+	}// </editor-fold>
 
 }

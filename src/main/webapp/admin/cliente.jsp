@@ -51,7 +51,7 @@
 					role="alert">
 					<strong><%=request.getSession().getAttribute("mensajeError")%></strong>
 					<%
-					request.getSession().setAttribute("mensaje", null);
+					request.getSession().setAttribute("mensajeError", null);
 					%>
 					<button type="button" class="btn-close" data-bs-dismiss="alert"
 						aria-label="Close"></button>
