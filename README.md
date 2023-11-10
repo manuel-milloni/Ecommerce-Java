@@ -44,7 +44,7 @@ Aprobación Directa
 | - | - | - | - |
 |**ABMC**|Todos|Todos|<p>1. ABMC Empleados</p><p>2. ABMC Pedidos</p><p>3. ABMC Cliente</p><p>4. ABMC Venta</p><p>5. ABMC Productos</p><p>6. ABMC Proveedor</p><p>7. ABMC Linea de venta</p><p>8. ABMC Tipo producto</p><p>9. ABMC Rol</p><p>10. ABMC Categoria</p><p>11. ABMC Linea de pedido</p>|
 |**CU “Complejo” (nivel resumen)**|1|2|<p>1. CUR Registrar una venta</p><p>2. CUR Realizar un pedido</p>|
-|**Listado complejo**|1|2|<p>1. Listado de los productos por descripción.</p><p>2. Listado de los proveedores por Razón Social</p>|
+|**Listado complejo**|1|2|<p>1. Listado de los productos por descripción.</p><p>2. Listado de los pedidos por proveedor</p>|
 |**Nivel de acceso**|2|2|<p>1. Empleado</p><p>2. Administrador</p><p>3. Cliente</p>|
 |**Manejo de errores**|Obligatorio|Obligatorio|No requiere detalle|
 |**Requerimiento extra obligatorio (\*\*)**|0|1|1\. Manejo de archivos|
