@@ -93,22 +93,28 @@ public class ControladorCarrito extends HttpServlet {
                         for (Carrito c : carrito_lista) {
 
                             if (id == c.getIdProducto()) {
+                            	 Producto producto = pDAO.getById(id);
+                            	 c.setStock(producto.getStock());
                                 if (c.getStock() < c.getCantidad() + 1) {
                                     request.setAttribute("mensaje", "La cant pedida excede el stock disponible. Stock: " + c.getStock());
                                     request.getRequestDispatcher("ControladorCarrito?menu=carrito&accion=carrito").forward(request, response);
                                     break;
                                 } else {
                                     c.setCantidad(c.getCantidad() + 1);
+                                    break;
                                 }
 
                             }
 
                         }
                     }
-
+                    
                     request.getRequestDispatcher("ControladorCarrito?menu=carrito&accion=carrito").forward(request, response);
-
                     break;
+
+                    
+
+                  
 
                 }
 

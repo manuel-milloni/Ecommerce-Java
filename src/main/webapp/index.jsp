@@ -113,7 +113,7 @@
 
 
         <div class="container">
-            <div class="card-header my-3">All Products</div>
+            <div class="card-header my-3">Productos</div>
             <div class="row">
                 <%
                     if (!productos.isEmpty()) {

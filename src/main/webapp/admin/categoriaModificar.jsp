@@ -56,7 +56,7 @@
                 <c:forEach var="cat" items="${categorias}">
                     <tbody>
                         <tr>
-                            <td>${tcat.getId()}</td>
+                            <td>${cat.getId()}</td>
                             <td>${cat.getDescripcion()}</td>
                             <td>
                             <a class="btn btn-warning" href="ControladorCategoria?menu=Categoria&accion=Editar&id=${cat.getId()}">Editar</a>

@@ -58,12 +58,31 @@ if (carrito_lista != null) {
 		<div class="alert alert-danger alert-dismissible fade show"
 			role="alert">
 			<strong><%=request.getAttribute("mensaje")%></strong>
+			   <%request.setAttribute("mensaje", null);%>
+			
 			<button type="button" class="btn-close" data-bs-dismiss="alert"
 				aria-label="Close"></button>
 		</div>
 		<%
 		}
 		%>
+		
+			<%
+		if (request.getSession().getAttribute("mensaje") != null) {
+		%>
+		<div class="alert alert-danger alert-dismissible fade show"
+			role="alert">
+			<strong><%=request.getSession().getAttribute("mensaje")%></strong>
+			<%request.getSession().setAttribute("mensaje", null);%>
+			<button type="button" class="btn-close" data-bs-dismiss="alert"
+				aria-label="Close"></button>
+		</div>
+		<%
+		}
+		%>
+		
+		
+		
 		<div class="d-flex py-3">
 
 			<h3>Total:$ ${total}</h3>

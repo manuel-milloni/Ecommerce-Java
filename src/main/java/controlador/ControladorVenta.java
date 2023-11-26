@@ -14,19 +14,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.Carrito;
-import modelo.Categoria;
+
 import modelo.Cliente;
 import modelo.ClienteDAO;
-import modelo.EmpleadoDAO;
-import modelo.LineaPedidoDAO;
 import modelo.LineaVenta;
 import modelo.LineaVentaDAO;
-import modelo.Pedido;
-import modelo.PedidoDAO;
 import modelo.Venta;
 import modelo.VentaDAO;
 import modelo.ProductoDAO;
-import modelo.ProveedorDAO;
+import modelo.Producto;
 
 @WebServlet("/ControladorVenta")
 public class ControladorVenta extends HttpServlet {
@@ -75,6 +71,22 @@ public class ControladorVenta extends HttpServlet {
                         response.sendRedirect("ControladorLogin?menu=login&accion=login");
                         break;
                     }
+                    
+                    //Controlo Stock nuevamente
+                    ArrayList<Carrito> lista_carrito = (ArrayList<Carrito>) request.getSession().getAttribute("carrito-lista");
+                    for(Carrito item : lista_carrito) {
+                    	  Producto producto = pDAO.getById(item.getIdProducto());
+                    	  item.setStock(producto.getStock());
+                    	  if(item.getCantidad()>item.getStock()) {
+                    		   System.out.println("LA CANTIDAD EXECEDEEEEEEEEE");
+                    		  request.getSession().setAttribute("mensaje", "La cantidad pedida excede el stock disponible en el producto:  "+item.getDescripcion());
+                    		   response.sendRedirect("ControladorCarrito?menu=carrito&accion=carrito");
+                               return;
+                    	  }
+                    	  
+                    }
+                    
+                 
 
                     Venta venta = new Venta();
                     LocalDateTime fecha = LocalDateTime.now();
@@ -85,8 +97,11 @@ public class ControladorVenta extends HttpServlet {
                     venta.setNroVenta(nroVenta);
 
                     if (vDAO.save(venta)) {
-                        ArrayList<Carrito> lista_carrito = (ArrayList<Carrito>) request.getSession().getAttribute("carrito-lista");
+                        
                         for (Carrito item : lista_carrito) {
+                        	
+                        	
+                        	
                             LineaVenta lv = new LineaVenta();
                             lv.setCantProducto(item.getCantidad());
                             lv.setNroVenta(nroVenta);
@@ -107,6 +122,7 @@ public class ControladorVenta extends HttpServlet {
                           break;
                     
                     }
+                 
 
                 }
                 
