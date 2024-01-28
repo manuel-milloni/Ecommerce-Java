@@ -78,15 +78,13 @@ public class ControladorVenta extends HttpServlet {
                     	  Producto producto = pDAO.getById(item.getIdProducto());
                     	  item.setStock(producto.getStock());
                     	  if(item.getCantidad()>item.getStock()) {
-                    		   System.out.println("LA CANTIDAD EXECEDEEEEEEEEE");
+                    		 
                     		  request.getSession().setAttribute("mensaje", "La cantidad pedida excede el stock disponible en el producto:  "+item.getDescripcion());
                     		   response.sendRedirect("ControladorCarrito?menu=carrito&accion=carrito");
                                return;
                     	  }
                     	  
                     }
-                    
-                 
 
                     Venta venta = new Venta();
                     LocalDateTime fecha = LocalDateTime.now();
@@ -99,8 +97,6 @@ public class ControladorVenta extends HttpServlet {
                     if (vDAO.save(venta)) {
                         
                         for (Carrito item : lista_carrito) {
-                        	
-                        	
                         	
                             LineaVenta lv = new LineaVenta();
                             lv.setCantProducto(item.getCantidad());
@@ -122,7 +118,6 @@ public class ControladorVenta extends HttpServlet {
                           break;
                     
                     }
-                 
 
                 }
                 
@@ -144,7 +139,6 @@ public class ControladorVenta extends HttpServlet {
 	        		    }
 	        		   
 	        		    break;
-	        		    
 	        		  
 	        	  }
 	        	  
@@ -166,8 +160,6 @@ public class ControladorVenta extends HttpServlet {
 	                        break;
 	                    }
 	        		  
-	        		  
-	        		  
 	        	  }
             }
         }
@@ -180,16 +172,7 @@ public class ControladorVenta extends HttpServlet {
     	    
     	    String cliente=request.getParameter("cliente");
     	    response.sendRedirect("ControladorVenta?menu=venta&accion=venta&buscador="+cliente);
-    	    
-    	  
-    	
-    	    
-    	    
-    	  
-    	    
-    	    
-
-    }
+    	   }
 
     @Override
     public String getServletInfo() {

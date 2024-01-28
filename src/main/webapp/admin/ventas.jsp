@@ -37,12 +37,8 @@
 		   venta.setCliente(c);
 		   ArrayList<LineaVenta> lineas = lvDAO.getAllByVenta(venta.getNroVenta());
 		  venta.setLineas(lineas); 
-		   
-		   
+		 }
 	   }
-	   
-	   
-   }
 
 
 
@@ -111,15 +107,7 @@
 				</form>
 			</div>
 		</div>
-
-
-
-
-
-
-
-
-		<br>
+        <br>
 
 		<div class="text-center">
 			<table class="table table-hover">
@@ -131,19 +119,10 @@
 						<th>FECHA</th>
 						<th>IMPORTE</th>
 						<th>ACCION</th>
-
-
-
-
-					</tr>
-
-
-				</thead>
+                    </tr>
+					</thead>
 				<%
-		
-
-				for (Venta venta : ventas) {
-				
+		          for (Venta venta : ventas) {
 				%>
 				<tbody>
 					<tr>
@@ -153,18 +132,8 @@
 						<td><%=venta.getFecha().format(formatter)%></td>
 						<td><%=venta.getTotal()%></td>
 						<td><a href="ControladorVenta?menu=venta&accion=detalle&id=<%=venta.getId()%>" class="btn btn-primary">VER DETALLE</a></td>
-
-
-
-
-
-
-
-
-					</tr>
-
-
-				</tbody>
+                   </tr>
+                </tbody>
 				<%
 				}
 				%>
@@ -178,14 +147,5 @@
 
 
 	</div>
-
-
-
-
-
-
-
-
-
 </body>
 </html>

@@ -9,26 +9,6 @@
 <%@page import="modelo.Carrito"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-ArrayList<Carrito> carrito_lista = (ArrayList<Carrito>) session.getAttribute("carrito-lista");
-List<Carrito> carritoProducto = null;
-double total = 0;
-if (carrito_lista != null) {
-	ProductoDAO pDAO = new ProductoDAO();
-
-	carritoProducto = pDAO.getCarritoProductos(carrito_lista);
-	total = pDAO.getTotal(carrito_lista);
-	request.setAttribute("carrito_lista", carrito_lista);
-	NumberFormat formatoDecimales = NumberFormat.getCurrencyInstance(Locale.US);
-	formatoDecimales.setMaximumFractionDigits(2);
-	String totalFormateado = formatoDecimales.format(total);
-	request.setAttribute("total", totalFormateado);
-
-} else {
-	request.setAttribute("total", total);
-}
-%>
-
 
 
 <!DOCTYPE html>
@@ -81,8 +61,6 @@ if (carrito_lista != null) {
 		}
 		%>
 		
-		
-		
 		<div class="d-flex py-3">
 
 			<h3>Total:$ ${total}</h3>
@@ -107,6 +85,8 @@ if (carrito_lista != null) {
 			</thead>
 			<tbody>
 				<%
+				ArrayList<Carrito> carrito_lista = (ArrayList<Carrito>) request.getAttribute("carrito_lista");
+				ArrayList<Carrito> carritoProducto = (ArrayList<Carrito>) request.getAttribute("carritoProducto");
 				TipoProductoDAO tpDAO = new TipoProductoDAO();
 
 				if (carrito_lista != null) {
@@ -154,15 +134,9 @@ if (carrito_lista != null) {
 
 				}
 				%>
+         </tbody>
 
-
-
-
-
-			</tbody>
-
-
-		</table>
+</table>
 
 
 	</div>
